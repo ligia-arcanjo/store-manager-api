@@ -18,9 +18,13 @@ const getProductById = async (req, res) => {
 
 const addProduct = async (req, res) => {
   const { name, quantity } = req.body;
-  const newProduct = await productsService.addProduct(name, quantity);
-  
-  res.status(201).json(newProduct);
+
+  try {
+    const newProduct = await productsService.addProduct(name, quantity);
+    res.status(201).json(newProduct);
+  } catch (error) {
+    res.status(409).json({ message: 'Product already exists' });
+  }
 };
 
 module.exports = { getAllProducts, getProductById, addProduct };
