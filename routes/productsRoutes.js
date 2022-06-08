@@ -7,6 +7,7 @@ const router = express.Router();
 router.get('/', productsController.getAllProducts);
 
 // criar endpoint GET /products/:id
+router.get('/:id', productsController.getProductById);
 
 // criar endpoint POST /products
 
