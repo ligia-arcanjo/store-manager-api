@@ -5,4 +5,10 @@ const getAllProducts = async () => {
   return products;
 };
 
-module.exports = { getAllProducts };
+const getProductById = async (id) => {
+  const [product] = await connection
+    .execute('SELECT * FROM StoreManager.products WHERE id = ?', [id]);
+  return product;
+};
+
+module.exports = { getAllProducts, getProductById };
