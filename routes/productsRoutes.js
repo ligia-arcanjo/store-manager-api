@@ -1,8 +1,10 @@
 const express = require('express');
+const productsController = require('../controllers/productsController');
 
 const router = express.Router();
 
 // criar endpoint GET /products
+router.get('/', productsController.getAllProducts);
 
 // criar endpoint GET /products/:id
 
