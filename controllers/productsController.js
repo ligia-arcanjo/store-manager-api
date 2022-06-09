@@ -23,7 +23,7 @@ const addProduct = async (req, res) => {
     const newProduct = await productsService.addProduct(name, quantity);
     res.status(201).json(newProduct);
   } catch (error) {
-    res.status(409).json({ message: 'Product already exists' });
+    res.status(409).json({ message: error.message });
   }
 };
 
