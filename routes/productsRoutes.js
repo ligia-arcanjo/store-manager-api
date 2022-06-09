@@ -14,6 +14,7 @@ router.get('/:id', productsController.getProductById);
 router.post('/', validateName, validateQuantity, productsController.addProduct);
 
 // criar endpoint PUT /products/:id
+router.put('/:id', productsController.updateProduct);
 
 // criar endpoint DELETE /products/:id
 router.delete('/:id', productsController.deleteProduct);
