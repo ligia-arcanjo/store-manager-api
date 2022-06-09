@@ -15,5 +15,6 @@ router.post('/', productsController.addProduct);
 // criar endpoint PUT /products/:id
 
 // criar endpoint DELETE /products/:id
+router.delete('/:id', productsController.deleteProduct);
 
 module.exports = router;
