@@ -35,7 +35,15 @@ const deleteProduct = async (id) => {
 };
 
 const updateProduct = async (name, quantity, id) => {
+  const products = await productsModel.getAllProducts();
+  const productExists = products.some((e) => e.id === Number(id));
+
+  if (!productExists) {
+    throw new Error('Product not found');
+  }
+  
   const updatedProduct = await productsModel.updateProduct(name, quantity, id);
+
   return updatedProduct;
 };
 
