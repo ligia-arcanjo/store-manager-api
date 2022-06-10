@@ -52,4 +52,25 @@ const addSale = async (sale) => {
   return insertId;
 };
 
-module.exports = { getAllSales, getSaleById, addSale };
+const updateSale = async (saleId, body) => {
+  const { quantity, productId } = body;
+  const sale = connection.execute(
+    `UPDATE StoreManager.sales_products
+    SET quantity = ?
+    WHERE sale_id = ? AND product_id = ?;`,
+    [quantity, saleId, productId],
+  );
+  
+  // const updatedSale = {
+  //   saleId,
+  //   itemUpdated: [
+  //     {
+  //       productId,
+  //       quantity,
+  //     },
+  //   ],
+  // };
+  return sale;
+};
+
+module.exports = { getAllSales, getSaleById, addSale, updateSale };
