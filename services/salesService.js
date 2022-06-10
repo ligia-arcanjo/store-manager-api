@@ -10,4 +10,15 @@ const getSaleById = async (id) => {
   return sale;
 };
 
-module.exports = { getAllSales, getSaleById };
+const addSale = async (sale) => {
+  const idNewSale = await salesModel.addSale(sale);
+  
+  const newSaleInfos = {
+    id: idNewSale,
+    itemsSold: sale,
+  };
+
+  return newSaleInfos;
+};
+
+module.exports = { getAllSales, getSaleById, addSale };
