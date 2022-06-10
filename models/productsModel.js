@@ -17,13 +17,7 @@ const addProduct = async (name, quantity) => {
     [name, quantity],
   );
 
-  const newProduct = {
-    id: product.insertId,
-        name,
-        quantity,
-  };
-
-  return newProduct;
+  return product.insertId;
 };
 
 const deleteProduct = async (id) => {

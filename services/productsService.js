@@ -18,7 +18,14 @@ const addProduct = async (name, quantity) => {
     throw new Error('Product already exists');
   }
 
-  const newProduct = await productsModel.addProduct(name, quantity);
+  const insertId = await productsModel.addProduct(name, quantity);
+
+  const newProduct = {
+    id: insertId,
+        name,
+        quantity,
+  };
+
   return newProduct;
 };
 
