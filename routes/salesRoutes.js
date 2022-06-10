@@ -13,6 +13,7 @@ router.get('/:id', salesController.getSaleById);
 router.post('/', salesController.addSale);
 
 // criar endpoint PUT /sales/:id
+router.put('/:id', salesController.updateSale);
 
 // criar endpoint DELETE /sales/:id
 
