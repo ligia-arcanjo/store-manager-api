@@ -2,11 +2,13 @@ const productsModel = require('../models/productsModel');
 
 const getAllProducts = async () => {
   const products = await productsModel.getAllProducts();
+
   return products;
 };
 
 const getProductById = async (id) => {
-  const product = await productsModel.getProductById(id);
+  const [product] = await productsModel.getProductById(id);
+
   return product;
 };
 
@@ -38,6 +40,7 @@ const deleteProduct = async (id) => {
   }
   
   const productDelete = await productsModel.deleteProduct(id);
+  
   return productDelete;
 };
 
