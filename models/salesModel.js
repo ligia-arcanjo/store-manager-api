@@ -61,15 +61,6 @@ const updateSale = async (saleId, body) => {
     [quantity, saleId, productId],
   );
   
-  // const updatedSale = {
-  //   saleId,
-  //   itemUpdated: [
-  //     {
-  //       productId,
-  //       quantity,
-  //     },
-  //   ],
-  // };
   return sale;
 };
 
