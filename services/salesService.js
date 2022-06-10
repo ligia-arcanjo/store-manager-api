@@ -21,4 +21,19 @@ const addSale = async (sale) => {
   return newSaleInfos;
 };
 
-module.exports = { getAllSales, getSaleById, addSale };
+const updateSale = async (saleId, body) => {
+  if (body[0].quantity < 1) {
+    throw new Error('Sale not found');
+  }
+
+  await salesModel.updateSale(saleId, body[0]);
+
+  const updatedSale = {
+    saleId,
+    itemUpdated: body,
+  };
+
+  return updatedSale;
+};
+
+module.exports = { getAllSales, getSaleById, addSale, updateSale };
