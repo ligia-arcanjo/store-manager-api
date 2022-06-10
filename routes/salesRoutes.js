@@ -10,6 +10,7 @@ router.get('/', salesController.getAllSales);
 router.get('/:id', salesController.getSaleById);
 
 // criar endpoint POST /sales
+router.post('/', salesController.addSale);
 
 // criar endpoint PUT /sales/:id
 
