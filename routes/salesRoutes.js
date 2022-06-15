@@ -16,5 +16,6 @@ router.post('/', salesController.addSale);
 router.put('/:id', salesController.updateSale);
 
 // criar endpoint DELETE /sales/:id
+router.delete('/:id', salesController.deleteSale);
 
 module.exports = router;

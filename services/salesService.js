@@ -2,11 +2,13 @@ const salesModel = require('../models/salesModel');
 
 const getAllSales = async () => {
   const sales = await salesModel.getAllSales();
+
   return sales;
 };
 
 const getSaleById = async (id) => {
   const sale = await salesModel.getSaleById(id);
+
   return sale;
 };
 
@@ -36,4 +38,14 @@ const updateSale = async (saleId, body) => {
   return updatedSale;
 };
 
-module.exports = { getAllSales, getSaleById, addSale, updateSale };
+const deleteSale = async (id) => {
+  const saleById = await salesModel.getSaleById(id);
+
+  if (saleById.length === 0) {
+    throw new Error('Sale not found');
+  }
+
+  await salesModel.deleteSale(id);
+};
+
+module.exports = { getAllSales, getSaleById, addSale, updateSale, deleteSale };
