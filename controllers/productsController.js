@@ -44,7 +44,7 @@ const updateProduct = async (req, res) => {
 
   try {
     await productsService.updateProduct(name, quantity, id);
-    const [product] = await productsService.getProductById(id);
+    const product = await productsService.getProductById(id);
     res.status(200).json(product);
   } catch (error) {
     res.status(404).json({ message: error.message });

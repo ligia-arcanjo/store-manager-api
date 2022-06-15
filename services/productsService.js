@@ -52,7 +52,8 @@ const updateProduct = async (name, quantity, id) => {
     throw new Error('Product not found');
   }
   
-  const updatedProduct = await productsModel.updateProduct(name, quantity, id);
+  await productsModel.updateProduct(name, quantity, id);
+  const updatedProduct = { id, name, quantity };
 
   return updatedProduct;
 };
