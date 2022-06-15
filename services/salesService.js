@@ -9,6 +9,10 @@ const getAllSales = async () => {
 const getSaleById = async (id) => {
   const sale = await salesModel.getSaleById(id);
 
+  if (sale.length === 0) {
+    throw new Error('Sale not found');
+  }
+
   return sale;
 };
 
