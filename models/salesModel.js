@@ -11,6 +11,7 @@ const getAllSales = async () => {
     INNER JOIN sales_products AS sales_products
     ON sales.id = sales_products.sale_id`,
   );
+
   return sales;
 };
 
@@ -26,6 +27,7 @@ const getSaleById = async (id) => {
     WHERE sales.id = ?`,
     [id],
   );
+
   return sales;
 };
 
@@ -64,4 +66,9 @@ const updateSale = async (saleId, body) => {
   return sale;
 };
 
-module.exports = { getAllSales, getSaleById, addSale, updateSale };
+const deleteSale = async (id) => {
+  await connection.execute('DELETE FROM StoreManager.sales WHERE id = ?', [id]);
+  await connection.execute('DELETE FROM StoreManager.sales_products WHERE sale_id = ?', [id]);
+};
+
+module.exports = { getAllSales, getSaleById, addSale, updateSale, deleteSale };
