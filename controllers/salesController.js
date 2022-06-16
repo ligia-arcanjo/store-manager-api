@@ -17,8 +17,12 @@ const getSaleById = async (req, res) => {
 };
 
 const addSale = async (req, res) => {
-  const newSale = await salesService.addSale(req.body);
-  res.status(201).json(newSale);
+  try {
+    const newSale = await salesService.addSale(req.body);
+    res.status(201).json(newSale);
+  } catch (error) {
+    res.status(422).json({ message: error.message });
+  }
 };
 
 const updateSale = async (req, res) => {
