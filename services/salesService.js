@@ -1,3 +1,4 @@
+const { getProductById } = require('../models/productsModel');
 const salesModel = require('../models/salesModel');
 
 const getAllSales = async () => {
@@ -16,9 +17,26 @@ const getSaleById = async (id) => {
   return sale;
 };
 
+const checkQuantity = async (sale) => {
+  const isEnoughQuantity = sale.forEach(async (element) => {
+    const [product] = await getProductById(element.productId);
+    console.log('cada produto: ', product);
+    if (product.quantity < element.quantity) {
+      return false;
+    }
+
+    return true;
+  });
+
+  if (!isEnoughQuantity) {
+    throw new Error('Such amount is not permitted to sell');
+  }
+};
+
 const addSale = async (sale) => {
+  await checkQuantity(sale);
+
   const idNewSale = await salesModel.addSale(sale);
-  
   const newSaleInfos = {
     id: idNewSale,
     itemsSold: sale,
