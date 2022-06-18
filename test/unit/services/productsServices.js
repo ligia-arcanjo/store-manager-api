@@ -79,6 +79,25 @@ describe('Testa a camada service de produtos', () => {
   });
 
   // addProduct
+  describe('Verifica se é possível adicionar produto ao banco de dados', async () => {
+    before(async () => {
+      const execute = { id: 4, name: 'produto', quantity: 10 };
+      sinon.stub(productsModel, 'addProduct').resolves([execute]);
+    });
+  
+    after(async () => {
+      productsModel.addProduct.restore();
+    });
+
+    it('Quando é adicionado produto, retorna um objeto com as informações do novo produto', async () => {
+      const response = await productsService.addProduct();
+
+      expect(response).to.be.a('object');
+      expect(response).to.have.property('id');
+      expect(response).to.have.property('name');
+      expect(response).to.have.property('quantity');
+    });
+  })
 
   // deleteProduct
 
