@@ -1,6 +1,6 @@
 const sinon = require('sinon');
-const connection = require('../../../database/connection');
 const salesModel = require('../../../models/salesModel');
+const productsModel = require('../../../models/productsModel');
 const salesService = require('../../../services/salesService');
 const { expect } = require('chai');
 
@@ -65,12 +65,12 @@ describe('Testa a camada service de vendas', () => {
   // addSale
   describe('Verifica se é possível adicionar uma venda', async () => {
     before(async () => {
-      const execute = { id: 3, itemsSold: [ { productId: 1, quantity: 2 } ] };
-
-      sinon.stub(salesModel, 'addSale').resolves([execute]);
+      sinon.stub(productsModel, 'getProductById').resolves([{ id: 1, name: 'Martelo de Thor', quantity: 10 }]);
+      sinon.stub(salesModel, 'addSale').resolves(3);
     })
 
     after(async () => {
+      productsModel.getProductById.restore();
       salesModel.addSale.restore();
     });
 
