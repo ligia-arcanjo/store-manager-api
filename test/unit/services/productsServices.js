@@ -1,5 +1,6 @@
 const sinon = require('sinon');
 const connection = require('../../../database/connection');
+const productsModel = require('../../../models/productsModel');
 const productsService = require('../../../services/productsService');
 const { expect } = require('chai');
 
@@ -9,20 +10,22 @@ describe('Testa a camada service de produtos', () => {
     before(async () => {
       const execute = [
         { id: 1, name: 'Martelo de Thor', quantity: 10 },
+        { id: 2, name: 'Traje de encolhimento', quantity: 20 },
+        { id: 3, name: 'Escudo do Capitão América', quantity: 30 }
       ];
 
-      sinon.stub(connection, 'execute').resolves([execute]);
+      sinon.stub(productsModel, 'getAllProducts').resolves(execute);
     })
 
     after(async () => {
-      connection.execute.restore();
+      productsModel.getAllProducts.restore();
     });
 
     it('Quando existem produtos no banco de dados, retorna um array de produtos', async () => {
       const response = await productsService.getAllProducts();
 
       expect(response).to.be.an('array');
-      expect(response).to.have.length(1);
+      expect(response).to.have.length(3);
     });
 
     it('Quando existem produtos no banco de dados, retorna um array de objetos com as propriedades corretas', async () => {
@@ -39,49 +42,30 @@ describe('Testa a camada service de produtos', () => {
 
   describe('Verifica o retorno quando não há produtos cadastrados no banco de dados', async () => {
     before(async () => {
-      const execute = [[]];
-      sinon.stub(connection, 'execute').resolves(execute);
+      const execute = [];
+      sinon.stub(productsModel, 'getAllProducts').resolves(execute);
     });
   
     after(async () => {
-      connection.execute.restore();
+      productsModel.getAllProducts.restore();
     });
 
     it('Quando não há dados cadastrados, retorna um array vazio', async () => {
       const response = await productsService.getAllProducts();
 
-      expect(response).to.be.an('array');
-      expect(response).to.have.length(0);
-    });
-  });
-
-  describe('Verifica o retorno quando não há produtos cadastrados no banco de dados', async () => {
-    before(async () => {
-      const execute = [[]];
-      sinon.stub(connection, 'execute').resolves(execute);
-    });
-  
-    after(async () => {
-      connection.execute.restore();
-    });
-
-    it('Quando não há dados cadastrados, retorna um array vazio', async () => {
-      const response = await productsService.getAllProducts();
-
-      expect(response).to.be.an('array');
-      expect(response).to.have.length(0);
+      expect(response).to.be.empty;
     });
   });
 
   // getProductById
   describe('Verifica se é possível buscar um produto pelo id', async () => {
     before(async () => {
-      const execute = [{ id: 1, name: 'Martelo de Thor', quantity: 10 }];
-      sinon.stub(connection, 'execute').resolves([execute]);
+      const execute = { id: 1, name: 'Martelo de Thor', quantity: 10 };
+      sinon.stub(productsModel, 'getProductById').resolves([execute]);
     });
   
     after(async () => {
-      connection.execute.restore();
+      productsModel.getProductById.restore();
     });
 
     it('Quando um produto é buscado pelo id, retorna um objeto com id, name e quantity', async () => {
