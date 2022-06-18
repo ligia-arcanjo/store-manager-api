@@ -1,0 +1,102 @@
+const sinon = require('sinon');
+const connection = require('../../../database/connection');
+const productsService = require('../../../services/productsService');
+const { expect } = require('chai');
+
+describe('Testa a camada service de produtos', () => {
+  // getAllProducts
+  describe('Verifica se é possível listar todos os produtos cadastrados do banco de dados', async () => {
+    before(async () => {
+      const execute = [
+        { id: 1, name: 'Martelo de Thor', quantity: 10 },
+      ];
+
+      sinon.stub(connection, 'execute').resolves([execute]);
+    })
+
+    after(async () => {
+      connection.execute.restore();
+    });
+
+    it('Quando existem produtos no banco de dados, retorna um array de produtos', async () => {
+      const response = await productsService.getAllProducts();
+
+      expect(response).to.be.an('array');
+      expect(response).to.have.length(1);
+    });
+
+    it('Quando existem produtos no banco de dados, retorna um array de objetos com as propriedades corretas', async () => {
+      const response = await productsService.getAllProducts();
+
+      expect(response[0]).to.be.a('object');
+      response.forEach((element) => {
+        expect(element).to.have.property('id');
+        expect(element).to.have.property('name');
+        expect(element).to.have.property('quantity');
+      });
+    });
+  });
+
+  describe('Verifica o retorno quando não há produtos cadastrados no banco de dados', async () => {
+    before(async () => {
+      const execute = [[]];
+      sinon.stub(connection, 'execute').resolves(execute);
+    });
+  
+    after(async () => {
+      connection.execute.restore();
+    });
+
+    it('Quando não há dados cadastrados, retorna um array vazio', async () => {
+      const response = await productsService.getAllProducts();
+
+      expect(response).to.be.an('array');
+      expect(response).to.have.length(0);
+    });
+  });
+
+  describe('Verifica o retorno quando não há produtos cadastrados no banco de dados', async () => {
+    before(async () => {
+      const execute = [[]];
+      sinon.stub(connection, 'execute').resolves(execute);
+    });
+  
+    after(async () => {
+      connection.execute.restore();
+    });
+
+    it('Quando não há dados cadastrados, retorna um array vazio', async () => {
+      const response = await productsService.getAllProducts();
+
+      expect(response).to.be.an('array');
+      expect(response).to.have.length(0);
+    });
+  });
+
+  // getProductById
+  describe('Verifica se é possível buscar um produto pelo id', async () => {
+    before(async () => {
+      const execute = [{ id: 1, name: 'Martelo de Thor', quantity: 10 }];
+      sinon.stub(connection, 'execute').resolves([execute]);
+    });
+  
+    after(async () => {
+      connection.execute.restore();
+    });
+
+    it('Quando um produto é buscado pelo id, retorna um objeto com id, name e quantity', async () => {
+      const response = await productsService.getProductById(1);
+
+      expect(response).to.be.a('object');
+      expect(response).to.have.property('id');
+      expect(response).to.have.property('name');
+      expect(response).to.have.property('quantity');
+    });
+  });
+
+  // addProduct
+
+  // deleteProduct
+
+  // updateProduct
+});
