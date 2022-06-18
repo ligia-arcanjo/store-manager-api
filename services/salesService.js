@@ -1,4 +1,4 @@
-const { getProductById } = require('../models/productsModel');
+const productsModel = require('../models/productsModel');
 const salesModel = require('../models/salesModel');
 
 const getAllSales = async () => {
@@ -18,7 +18,7 @@ const getSaleById = async (id) => {
 };
 
 const addSale = async (sale) => {
-  const [product] = await getProductById(sale[0].productId);
+  const [product] = await productsModel.getProductById(sale[0].productId);
   if (product.quantity < sale[0].quantity) {
     throw new Error('Such amount is not permitted to sell');
   }
