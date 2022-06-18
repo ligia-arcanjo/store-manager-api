@@ -56,13 +56,13 @@ const addSale = async (sale) => {
 
 const updateSale = async (saleId, body) => {
   const { quantity, productId } = body;
-  const sale = connection.execute(
+  const sale = await connection.execute(
     `UPDATE StoreManager.sales_products
     SET quantity = ?
     WHERE sale_id = ? AND product_id = ?;`,
     [quantity, saleId, productId],
   );
-  
+
   return sale;
 };
 
