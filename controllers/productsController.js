@@ -43,8 +43,7 @@ const updateProduct = async (req, res) => {
   const { name, quantity } = req.body;
 
   try {
-    await productsService.updateProduct(name, quantity, id);
-    const product = await productsService.getProductById(id);
+    const product = await productsService.updateProduct(name, quantity, id);
     res.status(200).json(product);
   } catch (error) {
     res.status(404).json({ message: error.message });
