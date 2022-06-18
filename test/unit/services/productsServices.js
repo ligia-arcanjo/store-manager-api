@@ -90,7 +90,8 @@ describe('Testa a camada service de produtos', () => {
     });
 
     it('Quando é adicionado produto, retorna um objeto com as informações do novo produto', async () => {
-      const response = await productsService.addProduct();
+      // const productInfo = { product: 'produto', quantity: 10 };
+      const response = await productsService.addProduct('produto', 10);
 
       expect(response).to.be.a('object');
       expect(response).to.have.property('id');
