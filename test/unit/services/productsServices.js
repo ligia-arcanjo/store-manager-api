@@ -81,17 +81,24 @@ describe('Testa a camada service de produtos', () => {
   // addProduct
   describe('Verifica se é possível adicionar produto ao banco de dados', async () => {
     before(async () => {
-      const execute = { id: 4, name: 'produto', quantity: 10 };
-      sinon.stub(productsModel, 'addProduct').resolves([execute]);
+      const execute = [
+        { id: 1, name: 'Martelo de Thor', quantity: 10 },
+        { id: 2, name: 'Traje de encolhimento', quantity: 20 },
+        { id: 3, name: "Escudo do Capitão América", quantity: 30 }
+      ];
+
+      sinon.stub(productsModel, 'addProduct').resolves([{ id: 4, name: 'produto', quantity: 10 }]);
+      sinon.stub(productsModel, 'getAllProducts').resolves([execute]);
     });
   
     after(async () => {
       productsModel.addProduct.restore();
+      productsModel.getAllProducts.restore();
     });
 
     it('Quando é adicionado produto, retorna um objeto com as informações do novo produto', async () => {
-      // const productInfo = { product: 'produto', quantity: 10 };
-      const response = await productsService.addProduct('produto', 10);
+      const productInfo = { product: 'produto', quantity: 10 };
+      const response = await productsService.addProduct(productInfo.product, productInfo.quantity);
 
       expect(response).to.be.a('object');
       expect(response).to.have.property('id');
