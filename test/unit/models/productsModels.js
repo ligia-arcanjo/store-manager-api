@@ -93,4 +93,50 @@ describe('Testa a camada models de produtos', () => {
       expect(response).to.be.empty;
     });
   });
+
+  // addProduct
+  describe('Verifica se é possível adicionar um produto ao banco de dados', async () => {
+    before(async () => {
+      const execute = [{ insertId: 4 }];
+      sinon.stub(connection, 'execute').resolves(execute);
+    });
+
+    after(async () => {
+      connection.execute.restore();
+    });
+
+    it('Quando é enviado um novo produto para cadastro, retorna o id do novo produto', async () => {
+      const productInfo = { name: 'produto', quantity: 10 };
+      const response = await productsModels.addProduct(productInfo.name, productInfo.quantity);
+
+      expect(response).to.be.equal(4);
+      expect(response).to.be.a('number');
+    });
+  });
+
+  // deleteProduct
+  // describe('Verifica se é possível deletar um produto através do id', async () => {});
+
+  // updateProduct
+  describe('Verifica se é possível atualizar um produto através do id', async () => {
+    before(async () => {
+      const execute = [{ affectedRows: 1 }];
+      sinon.stub(connection, 'execute').resolves(execute);
+    });
+
+    after(async () => {
+      connection.execute.restore();
+    });
+
+    it('Quando é atualizado um produto, retorna a quantidade de linhas afetadas na tabela', async () => {
+      const productName = 'produto';
+      const productQuantity = 15;
+      const productId = 1;
+      const response = await productsModels.updateProduct(productName, productQuantity, productId);
+
+      expect(response).to.be.equal(1);
+      expect(response).to.be.a('number');
+    });
+  });
+
 });
