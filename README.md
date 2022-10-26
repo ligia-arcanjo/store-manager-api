@@ -14,6 +14,7 @@
       - [Criando banco de dados localmente](#criando-banco-de-dados-localmente)
     - [Instalação das dependências e execução](#instalação-das-dependências-e-execução)
   - [Testes](#testes)
+  - [Endpoints](#endpoints)
   - [Autoria](#autoria)
 
 ## Sobre este projeto
@@ -108,6 +109,38 @@ Atraves do comando abaixo é possível rodar os testes e a cobertura de testes d
 ```
 npm test
 ```
+
+## Endpoints
+
+GET /products
+`http://localhost:3001/products` - para buscar todos os produtos
+
+GET /products/:id
+`http://localhost:3001/products/:id` - para buscar um o produto pelo id
+
+POST /products
+`http://localhost:3001/products` - para cadastrar um produto
+
+PUT /products/:id
+`http://localhost:3001/products/:id` - para editar um produto pelo id
+
+DELETE /products/:id
+`http://localhost:3001/products/:id` - para deletar um produto pelo id
+
+GET /sales
+`http://localhost:3001/sales` - para buscar uma venda
+
+GET /sales/:id
+`http://localhost:3001/sales/:id` - para buscar uma venda pelo id
+
+POST /sales
+`http://localhost:3001/sales` - para cadastrar uma venda
+
+PUT /sales/:id
+`http://localhost:3001/sales` - para editar uma venda pelo id
+
+DELETE /sales/:id
+`http://localhost:3001/sales` - para deletar uma venda pelo id
 
 ## Autoria
 
